@@ -1,0 +1,157 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Login</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.1/axios.js"></script>
+<script src="./js/tailwind.js"></script>
+<script src="index.js"></script>
+
+
+</head>
+<body>
+  <div class="bg-gray-100 min-h-screen flex items-center justify-center">
+    <h1 class="text-center animate-bounce text-green-600 text-2xl">Equipment <br>Tools Borrowing <br>Web App</h1>
+    <div class="bg-white p-8 rounded shadow-md w-96 ml-4">
+      <h2 class="text-2xl font-semibold mb-4 text-center">WELCOME</h2>
+      <div class="mb-4">
+        <div class="relative flex items-center">
+          <i class="far fa-user absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+          <input type="text" id="username" placeholder="Username" class="w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:border-blue-500">
+        </div>
+      </div>
+      
+      
+      <div class="mb-4 relative">
+        <div class="flex items-center">
+          <input type="password" id="password" placeholder="Password" class="w-full px-4 py-2 pl-10 border rounded focus:outline-none focus:border-blue-500">
+          <i class="fas fa-lock absolute left-3 top-1/2 transform -translate-y-1/2"></i>
+        </div>
+      </div>
+      
+      <div class="mb-6">
+        <button class="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="login()">Login</button>
+      </div>
+      <div class="flex justify-between">
+        <button class="text-blue-500 hover:underline"><a href="register.html">Don't Have An Account Yet?</a></button>
+        <p>Register Here</p>
+      </div>
+    </div>
+  </div>
+
+
+
+
+  
+  
+  
+</body>
+</html>
+<!-- //  document.addEventListener('DOMContentLoaded', function() {
+//   // Your JavaScript code here
+
+//   const login = () =>{
+//     var url = "http://localhost/defense/api/login.php";
+
+//     const username = document.getElementById("username").value;
+//     const password = document.getElementById("password").value;
+//     if (username === '' || password === '') {
+//         alert('Fill in both username and password fields');
+//     } else {
+//       const formData = new FormData();
+//       formData.append("username", username);
+//       formData.append("password", password);
+
+//       axios({
+//         url:url,
+//         method:"post",
+//         data:formData
+//       }).then(response => {
+//         var returnValue = response.data;
+//         if(returnValue == "0"){
+//           alert("Invalid username or password");
+//         }else{
+//           sessionStorage.setItem("uname", returnValue.user_username);
+//           sessionStorage.setItem("userid", returnValue.user_id);
+//           window.location.href = "main.html";
+//         }
+//       }).catch(error => {
+//         alert("ERROR! - ");
+//       })
+//     }
+
+//   }
+
+//   // Register
+//   function submit() {
+//     const name = document.getElementById("fname").value;
+//     const username = document.getElementById("register-username").value;
+//     const password = document.getElementById("pword").value;
+//     const retypepassword = document.getElementById("retypepassword").value;
+  
+//     // Check if any of the fields are empty
+//     if (name === '' || username === '' || password === '' || retypepassword === '') {
+//         alert('Fill in all fields');
+//         return;
+//     }
+  
+//     // Rest of your validation logic and form submission code goes here
+//     if  (password !== retypepassword) {
+//       alert('Please match the password');
+//       return;
+//   } else {
+//       var myUrl = "http://localhost/exam/api/insert.php";
+//       const formData = new FormData();
+//       formData.append("fname", name);
+//       formData.append("username", username);
+//       formData.append("pword", password);
+  
+//       axios({
+//           url: myUrl,
+//           method: "post",
+//           data: formData
+//       }).then(response => {
+//           if(response.data == 1){
+//               alert("Record Successfully Saved!");
+//               window.location.href = "index.html";
+//           } else {
+//               alert("Record NOT Saved!");
+//           }
+//       }).catch(error => {
+//           alert(`ERROR OCCURED! ${error}`);
+//       });
+//   }
+//   };
+
+// //   function RegisterAdd() {
+// //     document.getElementById('add-register').classList.remove('hidden');
+// // }
+
+// // function RegisterHide() {
+// //   document.getElementById('add-register').classList.add('hidden');
+// // }
+// }); -->
+
+<!-- <div class="fixed inset-0 flex items-center justify-center z-50 hidden" id="add-register">
+    <div class="fixed inset-0 bg-black opacity-50"></div>
+    <div class="bg-gray-200 p-6 border-1 rounded-lg shadow-lg z-10 w-full md:w-1/2 lg:w-1/3">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-xl font-semibold">Register</h2>
+            <button onclick="RegisterHide()" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-red-700">Close</button>
+        </div>
+        <form>
+          <input type="text" id="fname" placeholder="Name" class="mb-4 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+          <input type="text" id="register-username" placeholder="Username" class="mb-4 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+          <input type="password" id="pword" placeholder="Password" class="mb-4 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+          <input type="password" id="retypepassword" placeholder="Confirm Password" class="mb-4 w-full px-4 py-2 border rounded-lg focus:outline-none focus:border-blue-500">
+          <div class="foot flex justify-center">
+            <button class="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 focus:outline-none focus:bg-blue-600" onclick="submit()">Submit</button>
+          </div>
+      </form>
+    </div>
+</div>
+   -->
+
+
+

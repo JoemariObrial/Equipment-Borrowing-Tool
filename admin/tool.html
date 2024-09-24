@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tool List</title>
+    <script src="../js/tailwind.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+   <script src="../js/tool.js" defer></script>
+    <script src="../js/addmodal.js"></script>
+</head>
+<body class="bg-gray-100">
+    <div class="flex flex-col md:flex-row">
+        <!-- Sidebar -->
+        <nav class="bg-gray-800 h-screen p-8 md:w-1/8">
+            <div class="text-green-600 flex justify-center text-4xl animate-bounce"><i class="fas fa-toolbox"></i></div>
+            <div class="border-b-4 border-indigo-500 text-emerald-500 text-base mb-8 mt-2">Equipment Borrowing<br>System For Joemari</div>
+            <ul class="space-y-4">
+                <li class=" transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="dashboard.html" class="block"><i class="fas fa-tachometer-alt "></i>
+                        Home
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="customer.html" class="block"><i class="fas fa-user-plus"></i>
+                        Add Customer
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="tool.html" class="block"><i class="fas fa-tools"></i>
+                        Tool
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="borrow.html" class="block"><i class="fas fa-hand-holding-usd"></i>
+                        Borrow
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="return.html" class="block"><i class="fas fa-undo"></i>
+                        Return
+                    </a>
+                </li>
+                <!-- <li class="text-white hover:bg-sky-500 hover:text-white rounded-l-lg h-8">Settings</li> -->
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-red-600 duration-300 text-white rounded-l-lg h-8" id="logoutButton">
+                    <a href="#"><i class="fas fa-sign-out-alt"></i>
+                        Log out
+                    </a></li>
+            </ul>
+        </nav>
+        
+        <!-- Main Content -->
+        <div class="w-full md:w-3/4 p-6">
+            <div class="mt-3 px-2">
+                <div class="flex flex-col md:flex-row justify-between items-center">
+                    <div class="text-2xl font-bold text-sky-400 mb-2 md:mb-0">Tool List</div>
+                    <!-- <input type="search" placeholder="Search" id="search" class="rounded w-full md:w-1/4 h-10 text-center md:ml-10"> -->
+                </div>
+                <div class="mt-2">
+                    <div class="w-full md:w-[110%] rounded-md overflow-y-auto" style="max-height: 400px;" id="mainDiv"></div>
+                </div>
+            </div>
+            <button id="open-modal" class="transition ease-in-out delay-150 bg-emerald-400 hover:-translate-y-1 hover:scale-110 hover:bg-indigo-500 duration-300 h-10 w-full md:w-1/5 md:ml-auto mt-2 rounded-md">Add Tool</button>
+            <button id="btnRefresh" class="ml-auto mt-2 hidden">Refresh</button>
+        </div>
+        
+        <!-- Modal -->
+        <div id="modal" class="fixed top-0 left-0 w-full h-full flex items-center justify-center hidden">
+            <div class="fixed inset-0 bg-black opacity-50"></div>
+            <div class="modal-container bg-white w-11/12 md:max-w-md mx-auto rounded shadow-lg z-50 overflow-y-auto">
+                <div class="modal-content py-4 text-left px-6">
+                    <div class="flex justify-between items-center pb-3">
+                        <p class="text-2xl font-bold text-center">New Tool</p>
+                        <button id="close-modal" class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-red-700">Close</button>
+                    </div>
+                    <form>
+                        <div class="mb-4">
+                            <label for="ToolName" class="block">Tool Name:</label>
+                            <input id="ToolName" name="ToolName" type="text" class="w-full border rounded-md p-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="serialNo" class="block">Serial No:</label>
+                            <input id="serialNo" name="serialNo" type="text" class="w-full border rounded-md p-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="Quantity" class="block">Quantity:</label>
+                            <input id="Quantity" name="Quantity" type="number" class="w-full border rounded-md p-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="Available" class="block">Available:</label>
+                            <input id="Available" name="Available" type="number" class="w-full border rounded-md p-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <label for="condition" class="block">Condition:</label>
+                            <input id="condition" name="condition" type="text" class="w-full border rounded-md p-2" required>
+                        </div>
+                        <div class="mb-4">
+                            <button id="btnSave" name="submit" type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Submit</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="modalContainer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+        <div class="fixed inset-0 bg-black opacity-50"></div>
+        <div class="modal relative bg-white p-4 rounded-lg w-96 shadow-lg">
+            <div class="text-center">
+                <h2 class="text-xl font-semibold mb-4">Confirm Log Out</h2>
+                <p>Are you sure you want to log out?</p>
+            </div>
+      <!-- Modal Buttons -->
+            <div class="flex justify-center mt-6">
+                <button id="confirmLogout" class="rounded-md h-10 w-20 mr-4 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-600 duration-300"><a href="login.html">Log Out</a></button>
+            <button id="cancelLogout" class="btn btn-secondary">Cancel</button>
+        </div>
+    </div>
+
+</body>
+<script>
+    // Get the modal element and buttons
+const modal = document.getElementById('modalContainer');
+const logoutButton = document.getElementById('logoutButton'); // Corrected selector
+const confirmLogout = document.getElementById('confirmLogout');
+const cancelLogout = document.getElementById('cancelLogout');
+
+// Function to open the modal
+function openModal() {
+    modal.classList.remove('hidden');
+}
+
+// Function to close the modal
+function closeModal() {
+    modal.classList.add('hidden');
+}
+
+// Event listeners
+// Add the event listener to the anchor element
+logoutButton.querySelector('a').addEventListener('click', openModal);
+cancelLogout.addEventListener('click', closeModal);
+confirmLogout.addEventListener('click', () => {
+    // Add your logout logic here
+    // alert('BYE I LOVE YOU!');
+    // // Replace this with your actual logout code
+    // window.location = "index.html"
+    // closeModal();
+});
+</script>
+</html>

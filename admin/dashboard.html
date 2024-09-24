@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <!-- Include Tailwind CSS -->
+    <script src="../js/tailwind.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body class="mx-auto bg-gray-100 min-h-screen " onload="onLoad()">
+    <div class="flex flex-col lg:flex-row">
+        <nav class="lg:w-1/6 bg-gray-800 h-screen p-8">
+            <div class="text-green-600 flex justify-center text-4xl animate-bounce"><i class="fas fa-toolbox"></i></div>
+            <div class="border-b-4 border-indigo-500 text-emerald-500 text-base mt-9">
+                Equipment Borrowing<br>System For Joemari
+            </div>
+            <ul class="mt-9 space-y-4">
+                <li class=" transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="dashboard.html" class="block"><i class="fas fa-home "></i>
+                        Home
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="customer.html" class="block"><i class="fas fa-user-plus"></i>
+                        Add Customer
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="tool.html" class="block"><i class="fas fa-tools"></i>
+                        Tool
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="borrow.html" class="block"><i class="fas fa-hand-holding-usd"></i>
+                        Borrow
+                    </a>
+                </li>
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-sky-500 duration-300 text-white rounded-l-lg h-8 ">
+                    <a href="return.html" class="block"><i class="fas fa-undo"></i>
+                        Return
+                    </a>
+                </li>
+                <!-- <li class="text-white hover:bg-sky-500 hover:text-white rounded-l-lg h-8">Settings</li> -->
+                <li class="transition ease-in-out delay-150 hover:-translate-y-1 hover:scale-110 hover:bg-red-600 duration-300 text-white rounded-l-lg h-8" id="logoutButton">
+                    <a href="#"><i class="fas fa-sign-out-alt"></i>
+                        Log out
+                    </a></li>
+            </ul>
+        </nav>
+
+        <div class="lg:w-5/6 p-6">
+            <!-- Main content goes here -->
+            <div>
+                <div class="flex justify-between items-center">
+                    <div class="text-2xl text-sky-400 font-mono flex items-center">
+                        <div class="ml-2">Home</div>
+                        <i class="far fa-user-circle ml-[60%]"></i>
+                        <div id="name" class="ml-2">Username</div>
+                    </div>
+                </div>
+
+                <div class="flex flex-col lg:flex-row justify-start mt-10">
+                    <div class="border-yellow-500 border w-[40%] items-center transition ease-in-out delay-150 hover:scale-110 hover:border-blue-500 hover:shadow-lg shadow-cyan-800">
+                        <img src="../img/drill.png" alt="" style="height: 220px;">
+                    </div>
+                    <div class="border-yellow-500 border w-[40%] items-center ml-10 ">
+                        <img src="../img/hammer.png" alt="" style="height: 220px; width: 250px;">
+                    </div>
+                    <div class="border-yellow-500 border w-[40%] items-center ml-10 ">
+                        <img src="../img/mallet.png" alt="" style="height: 220px; width: 250px;">
+                    </div>
+                </div>
+            </div>
+
+            <div id="modalContainer" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                <div class="fixed inset-0 bg-black opacity-50"></div>
+                <div class="modal relative bg-white p-4 rounded-lg w-96 shadow-lg">
+                    <div class="text-center">
+                        <h2 class="text-xl font-semibold mb-4">Confirm Log Out</h2>
+                        <p>Are you sure you want to log out?</p>
+                    </div>
+              <!-- Modal Buttons -->
+                    <div class="flex justify-center mt-6">
+                        <button id="confirmLogout" class="rounded-md h-10 w-20 mr-4 transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:scale-110 hover:bg-red-600 duration-300"><a href="login.html">Log Out</a></button>
+                    <button id="cancelLogout" class="btn btn-secondary">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</body>
+<script>
+    const onLoad = () => {
+    document.getElementById("name").innerText = sessionStorage.getItem("uname");
+    //document.getElementById("userId").innerText = sessionStorage.getItem("studId");
+    // ShowCustomer();
+  }
+
+// Get the modal element and buttons
+const modal = document.getElementById('modalContainer');
+const logoutButton = document.getElementById('logoutButton'); // Corrected selector
+const confirmLogout = document.getElementById('confirmLogout');
+const cancelLogout = document.getElementById('cancelLogout');
+
+// Function to open the modal
+function openModal() {
+    modal.classList.remove('hidden');
+}
+
+// Function to close the modal
+function closeModal() {
+    modal.classList.add('hidden');
+}
+
+// Event listeners
+// Add the event listener to the anchor element
+logoutButton.querySelector('a').addEventListener('click', openModal);
+cancelLogout.addEventListener('click', closeModal);
+confirmLogout.addEventListener('click', () => {
+    // Add your logout logic here
+    // alert('BYE I LOVE YOU!');
+    // // Replace this with your actual logout code
+    // window.location = "index.html"
+    // closeModal();
+});
+
+
+</script>
+</html>
+
+
